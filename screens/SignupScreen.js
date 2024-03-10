@@ -5,12 +5,18 @@ import {
 } from "../components/util/http_request/CreateUser";
 import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
+import { Alert } from "react-native";
 
 function SignupScreen() {
   const [isAuthenticating, setAuthenticating] = useState(false);
   async function createUserHandler({ email, password }) {
     setAuthenticating(true);
-    await authenticatedUser(email, password);
+    try {
+      await authenticatedUser(email, password);
+    } catch {
+      Alert.alert("Error", "Unable to Signup");
+    }
+
     setAuthenticating(false);
   }
 
