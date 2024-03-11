@@ -7,18 +7,18 @@ export const AuthContext = createContext({
   logout: (token) => {},
 });
 
-function AuthenticationProvider(children) {
+function AuthenticationProvider({ children }) {
   const [isToken, setToken] = useState();
   function authenticate(token) {
     setToken(token);
   }
   function logout(token) {
-    setToken(token);
+    setToken(null);
   }
 
   const value = {
     token: isToken,
-    isAuthenticated: true,
+    isAuthenticated: !!isToken,
     authenticate: authenticate,
     logout: logout,
   };
